@@ -1,0 +1,43 @@
+CREATE TABLE Customers (
+    CustomerID INT AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100) UNIQUE,
+    PhoneNumber VARCHAR(20),
+    Address VARCHAR(255),
+    City VARCHAR(50),
+    State VARCHAR(50),
+    PostalCode VARCHAR(20),
+    Country VARCHAR(50),
+    DateOfBirth DATE,
+    RegistrationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Status VARCHAR(20) DEFAULT 'Active'
+
+);
+CREATE TABLE Products (
+    ProductID INT AUTO_INCREMENT PRIMARY KEY,
+    ProductName VARCHAR(100) NOT NULL,
+    CategoryID INT,
+    SupplierID INT,
+    QuantityPerUnit VARCHAR(50),
+    UnitPrice DECIMAL(10, 2),
+    UnitsInStock INT,
+    UnitsOnOrder INT,
+    ReorderLevel INT,
+    Discontinued BOOLEAN DEFAULT FALSE,
+    Description TEXT,
+    ImageURL VARCHAR(255),
+    Weight DECIMAL(10, 2),
+    Dimensions VARCHAR(50),
+    DateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    LastUpdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+CREATE TABLE Purchases (
+    PurchaseID INT AUTO_INCREMENT PRIMARY KEY,
+    CustomerID INT,
+    ProductID INT,
+    Quantity INT,
+    PurchaseDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
